@@ -13,25 +13,11 @@ stable"
 sudo apt-get update
 sleep 1
 
-sudo apt-get install -y docker-ce=$docker_ver docker-ce-cli=$docker_ver containerd.io
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo systemctl enable docker
 sudo systemctl start docker
 
-# First Permission
-sudo mkdir /etc/docker
-# sudo chown $USER:docker /etc/docker
-
-# Setup daemon.
-sudo cat > /etc/docker/daemon.json <<EOF
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
+##############################################################
 
 sudo mkdir -p /etc/systemd/system/docker.service.d
 
